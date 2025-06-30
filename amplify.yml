@@ -7,15 +7,12 @@ backend:
         - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
   phases:
-    preBuild:
-      commands:
-        - nvm install 20
-        - nvm use 20
-        - node -v
-        - npm install -g aws-cdk
-        - npm ci
     build:
       commands:
+        - npm install -g n
+        - n lts   # or replace 'lts' with a specific version, e.g., '18.20.2'
+        - node -v # optional: verify the version
+        - npm install -g aws-cdk@latest
         - npm run build
   artifacts:
     baseDirectory: dist
